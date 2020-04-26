@@ -1,0 +1,35 @@
+.sudoku-board {
+  display:      inline-block;
+  margin-right: 128px;
+}
+
+.sudoku-grid {
+  display: inline-block;
+  width:   198px;
+  border:  1px solid black;
+}
+
+.sudoku-cell {
+  display:        inline-block;
+  width:          64px;
+  height:         64px;
+  border:         1px solid rgba(0, 0, 0, 0.1);
+  vertical-align: middle;
+}
+
+.solved {
+  background-color: rgba(0, 255, 0, 0.7);
+}
+
+.blank {
+  background-color: white;
+}
+
+.indeterminate {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.sudoku-next {
+  margin-top: 16px;
+  display:    block;
+}

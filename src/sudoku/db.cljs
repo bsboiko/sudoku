@@ -1,5 +1,6 @@
 (ns sudoku.db
-  (:require [cljs.spec.alpha :as s]))
+  (:require [cljs.spec.alpha :as s]
+            [sudoku.util     :as u]))
 
 (s/def ::sudoku-id (s/and int? 
                           #(<= 0 % 8)))
@@ -24,7 +25,8 @@
                             :cell/grid
                             :cell/value]))
 
-(s/def ::board (s/map-of :cell/id ::cell))
+(s/def ::board (s/and (s/map-of :cell/id ::cell)
+                      #(u/check-board %)))
 
 (s/def ::old-board ::board)
 (s/def ::new-board (s/nilable ::board))
@@ -54,42 +56,65 @@
     (and (<= 6 col 8)
          (<= 6 row 8)) 8))
 
+(def easy
+  {0  1
+   1  9
+   3  7
+   4  5
+   5  8
+   6  6
+   17 7
+   19 6
+   20 7
+   21 9
+   23 3
+   24 2
+   26 1
+   29 5
+   30 4
+   36 9
+   37 7
+   38 3
+   39 2
+   45 6
+   46 4
+   48 8
+   52 5
+   54 7 
+   60 3
+   63 3
+   67 9
+   69 7
+   70 4
+   71 5
+   72 2
+   77 6
+   80 9})
+
+(def hard
+  {2  5
+   5  9
+   8  3
+   11 6
+   21 1
+   24 8
+   27 4
+   28 8
+   33 1
+   41 5
+   50 2
+   56 3
+   62 6
+   69 2
+   71 5
+   73 1
+   75 4
+   76 8})
+
 (def data
   (into {}
         (for [[k v]
-              {0 1
-               1 9
-               3 7
-               4 5
-               5 8
-               6 6
-               17 7
-               19 6
-               20 7
-               21 9
-               23 3
-               24 2
-               26 1
-               29 5
-               30 4
-               36 9
-               37 7
-               38 3
-               39 2
-               45 6
-               46 4
-               48 8
-               52 5
-               54 7 
-               60 3
-               63 3
-               67 9
-               69 7
-               70 4
-               71 5
-               72 2
-               77 6
-               80 9}
+              easy
               :when v]
           [k {:cell/value #{v}}])))
 

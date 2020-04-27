@@ -9,6 +9,7 @@
                 :else               :indeterminate)]
     [:span
      {:class (str "sudoku-cell " (name state))}
+     [:div id]
      [:div (condp = state
              :solved        (str (first value))
              :blank         ""
